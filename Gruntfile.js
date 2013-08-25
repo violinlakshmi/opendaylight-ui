@@ -44,12 +44,13 @@ module.exports = function (grunt) {
                 }
             }
         },
+        // JS Tasks
         concat: {
             options: {
                 banner: '<%= banner %>',
                 stripBanners: true
             },
-            js: {
+            dist: {
                 src: ['src/js/*.js'],
                 dest: 'target/<%= pkg.name %>.js'
             }
@@ -63,11 +64,15 @@ module.exports = function (grunt) {
                 dest: 'target/<%= pkg.name %>.min.js'
             }
         },
+        // HTML Tasks
         useminPrepare: {
             html: 'src/index.html',
             options: {
                 dest: 'target'
             }
+        },
+        usemin: {
+            html: 'target/index.html'
         },
         htmlmin: {
             build: {
@@ -76,15 +81,23 @@ module.exports = function (grunt) {
                 }
             }
         },
+        // Style tasks
         cssmin: {
             combine: {
                 files: {
-                    'target/<%= pkg.name %>.css': ['src/css/*.css']
+                    'target/<%= pkg.name %>-combined.css': ['src/css/*.css']
                 }
             }
         },
-        usemin: {
-            html: 'target/index.html'
+        less: {
+            dev: {
+                options: {
+                    paths: ['src/less']
+                },
+                files: {
+                    'target/<%= pkg.name %>.css': 'src/css/<%= pkg.name %>.less'
+                }
+            }
         },
         copy: {
             prod: {
@@ -142,7 +155,7 @@ module.exports = function (grunt) {
                 tasks: ['build-target']
             },
             js: {
-                files: '**/*.js',
+                files: 'src/*.js',
                 tasks: ['build-js'],
                 options: {
                     debounceDelay: 100
@@ -151,9 +164,11 @@ module.exports = function (grunt) {
         },
     });
 
-    grunt.registerTask('build-js', ['jshint', 'concat:js'])
+    grunt.registerTask('build-js', ['jshint', 'concat']);
+    grunt.registerTask('build-styles', ['cssmin', 'less']);
 
-    grunt.registerTask('build-target', ['useminPrepare', 'concat', 'uglify', 'cssmin', 'htmlmin', 'usemin', 'copy:prod'])
+    grunt.registerTask('build-target', ['useminPrepare', 'build-js', 'uglify', 'build-styles', 'htmlmin', 'usemin', 'copy:prod']);
+
     grunt.registerTask('default', ['clean', 'bower:install', 'build-target']);
 
     grunt.registerTask('dev', ['build-target', 'connect:dev', 'open:dev', 'watch']);
