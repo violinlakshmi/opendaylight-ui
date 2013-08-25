@@ -158,8 +158,16 @@ module.exports = function (grunt) {
                 files: 'src/*.js',
                 tasks: ['build-js'],
                 options: {
-                    debounceDelay: 100
+                    debounceDelay: 100,
+                    livereload: LIVERELOAD_PORT
                 },
+            },
+            styles: {
+                files: ['src/css/*.*'],
+                tasks: ['build-styles'],
+                options: {
+                    livereload: LIVERELOAD_PORT
+                }
             }
         },
     });
