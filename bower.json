@@ -11,6 +11,7 @@
     "jquery": "~2.0.2",
     "bootstrap": "https://github.com/twbs/bootstrap/archive/v3.0.0.zip",
     "angular": "http://code.angularjs.org/snapshot/angular.js",
-    "angular-route.js": "http://code.angularjs.org/snapshot/angular-route.js"
+    "angular-route": "http://code.angularjs.org/snapshot/angular-route.js",
+    "angular-ui-router": "https://raw.github.com/angular-ui/ui-router/master/release/angular-ui-router.min.js"
   }
 }
