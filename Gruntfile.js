@@ -104,6 +104,8 @@ module.exports = function (grunt) {
                 files: [
                     {expand: true, cwd:'src', src: ['templates/*.html'], dest: 'target'},
                     {expand: true, cwd:'src/components/bootstrap', src: ['img/*'], dest: 'target'},
+                    // Copy images (Logo etc)
+                    {expand: true, cwd:'src/img', src: ['*.*'], dest: 'target/img'}
                 ]
             }
         },
