@@ -1,29 +1,29 @@
-billingstack-ui
+opendaylight-ui
 ===============
 
-BillingStack UI (AngularJS 100% Client Side)
+OpenDaylight SDN Controller - UI (AngularJS 100% Client Side)
 
 The easy way
 ------------
 
 #### Clone the repository
 
-    git clone http://github.com/billingstack/billingstack-ui
-    cd billingstack-ui
-    
+    git clone http://github.com/ekarlso/opendaylight-ui
+    cd opendaylight-ui
+
 #### Install deps (nvm, node, npm, bower, grunt)
 
     ./tools/helper.sh install_deps
-    
+
 #### Install JS deps (Angular, etc)
 
     ./tools/helper.sh install_ui_deps
-    
-#### Now you can either build it using grunt or via the helper. 
+
+#### Now you can either build it using grunt or via the helper.
 More or the less useless because it's only grunt.
 
     ./tools/helper.sh build
-    
+
 More interesting, build a target.tar.gz for deployment
 
     ./tools/helper.sh build_dist
@@ -61,11 +61,11 @@ The hard way
     # npm install -g grunt-cli
     # npm install -g bower
 
-    # git clone http://github.com/billingstack/billingstack-ui
-    # cd billingstack-ui
+    # git clone http://github.com/ekarlso/opendaylight-ui
+    # cd opendaylight-ui
     # npm install
 
-#### Build BillingStack UI
+#### Build OpenDaylight UI
 
     # grunt
 
