@@ -8,63 +8,109 @@
 </head>
 
 <body>
-  <!-- menu -->
-  <div id="menu" class="navbar navbar-fixed-top">
-    <div class="navbar-inner row-fluid">
-      <div class="span9">
-        <a class="brand" href="/" title="Version 0.1">OpenDaylight</a>
-        <ul class="nav nav-tabs">
-        </ul>
-      </div>
-    </div>
-
-    <div class="span3">
-      <div id="toolbar" class="btn-group">
-       <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-        <div class="icon-user"></div> admin <span class="caret"></span>
-       </a>
-       <ul class="dropdown-menu">
-        <li><a href="#admin" id="admin" data-role="1"><div
-           class="icon-users"></div> Users</a></li>
-        <li><a href="#save" id="save"><div class="icon-save"></div>
-          Save</a></li>
-        <li><a href="#logout" id="logout"><div
-           class="icon-logout"></div> Logout</a></li>
-       </ul>
-      </div>
-    </div>
-  </div>
-  <!-- end menu -->
-
-  <!-- #footer -->
-   <div id="footer" class="navbar navbar-fixed-bottom">
-    <div class="navbar-inner row-fluid">
-     <div class="alert hide" id="alert">
-      <button type="button" class="close">&times;</button>
-      <p></p>
-     </div>
+ <!-- #menu -->
+ <div id="menu" class="navbar navbar-fixed-top">
+  <div class="navbar-inner row-fluid">
+   <div class="span9">
+    <a class="brand" href="/" title="FILL API VERSION HERE?">OpenDaylight</a>
+    <ul class="nav nav-tabs">
+    </ul>
+   </div>
+   <div class="span3">
+    <div id="toolbar" class="btn-group">
+     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+      <div class="icon-user"></div> {{username}} <span class="caret"></span>
+     </a>
+     <ul class="dropdown-menu">
+      <li><a href="#admin" id="admin" data-role="${role}"><div
+         class="icon-users"></div> Users</a></li>
+      <li><a href="#save" id="save"><div class="icon-save"></div>
+        Save</a></li>
+      <li><a href="#logout" id="logout"><div
+         class="icon-logout"></div> Logout</a></li>
+     </ul>
     </div>
    </div>
-   <!-- END #footer -->
-
-  <!-- main -->
-  <div id="main">
-    <!-- left -->
-    <div id="left">
-
-      <!-- left top -->
-      <div id="left-top">
-        <div class="dash">
-          <ul class="nav nav-tabs">
-          </ul>
-          <div class="dashlet row-fluid"></div>
-        </div>
-      </div>
-      <!-- end left top-->
-    </div>
-    <!-- end left-->
   </div>
-  <!-- end main -->
+ </div>
+ <!-- END #menu -->
+
+ <!-- #footer -->
+ <div id="footer" class="navbar navbar-fixed-bottom">
+  <div class="navbar-inner row-fluid">
+   <div class="alert hide" id="alert">
+    <button type="button" class="close">&times;</button>
+    <p></p>
+   </div>
+  </div>
+ </div>
+ <!-- END #footer -->
+
+ <!-- #main -->
+ <div id="main">
+
+  <!-- #left -->
+  <div id="left">
+   <!-- #left-top -->
+   <div id="left-top">
+    <div class="dash">
+     <ul class="nav nav-tabs">
+     </ul>
+     <div class="dashlet row-fluid"></div>
+    </div>
+   </div>
+   <!-- END #left-top -->
+
+   <!-- #left-bottom -->
+   <div id="left-bottom">
+    <div class="dash">
+     <ul class="nav nav-tabs">
+     </ul>
+     <div class="dashlet row-fluid"></div>
+    </div>
+   </div>
+   <!-- END #left-bottom -->
+  </div>
+  <!-- END #left -->
+
+  <!-- #right -->
+  <div id="right">
+   <!-- #right-top -->
+   <div id="right-top">
+    <div class="dash">
+     <div id="topology"></div>
+    </div>
+   </div>
+   <!-- END #right-top -->
+
+   <!-- #right-bottom -->
+   <div id="right-bottom">
+    <div class="dash">
+     <ul class="nav nav-tabs">
+     </ul>
+     <div class="dashlet row-fluid"></div>
+    </div>
+   </div>
+   <!-- END #right-bottom -->
+  </div>
+  <!-- END #right -->
+
+ </div>
+ <!-- END #main -->
+
+ <!-- modal -->
+ <div id="modal" class="modal hide fade">
+  <div class="modal-header">
+   <button type="button" class="close" data-dismiss="modal"
+    aria-hidden="true">&times;</button>
+   <button type="button" class="help" aria-hidden="true"
+    >?</button>
+   <h3></h3>
+  </div>
+  <div class="modal-body"></div>
+  <div class="modal-footer"></div>
+ </div>
+ <!-- END modal -->
 
   <!-- Scripts here please -->
   <script src="opendaylight-ui.js"></script>
