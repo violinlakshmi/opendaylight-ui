@@ -51,7 +51,13 @@ module.exports = function (grunt) {
                 stripBanners: true
             },
             dist: {
-                src: ['src/js/*.js'],
+                src: [
+                    'src/js/module.js',
+                    'src/js/states.js',
+                    'src/js/factory.js',
+                    'src/js/controllers.js'
+                    //'src/js/config.js'
+                    ],
                 dest: 'target/<%= pkg.name %>.js'
             }
         },
@@ -102,7 +108,7 @@ module.exports = function (grunt) {
         copy: {
             prod: {
                 files: [
-                    {expand: true, cwd:'src', src: ['partials/*.html'], dest: 'target'},
+
                     {expand: true, cwd:'src/components/bootstrap', src: ['img/*'], dest: 'target'},
                     // Copy images (Logo etc)
                     {expand: true, cwd:'src/img', src: ['*.*'], dest: 'target/img'}
@@ -153,10 +159,10 @@ module.exports = function (grunt) {
                         'src/*.html',
                         'src/partials/*.html'
                 ],
-                tasks: ['build-target']
+                tasks: ['build-dev']
             },
             js: {
-                files: 'src/*.js',
+                files: 'src/js/*.js',
                 tasks: ['build-js'],
                 options: {
                     debounceDelay: 100,
@@ -173,15 +179,16 @@ module.exports = function (grunt) {
         },
     });
 
-    grunt.registerTask('build-js', ['jshint', 'concat']);
+    grunt.registerTask('build-js', ['concat']);
     grunt.registerTask('build-styles', ['cssmin', 'less']);
 
-    grunt.registerTask('build-target', ['useminPrepare', 'build-js', 'uglify', 'build-styles', 'htmlmin', 'usemin', 'copy:prod']);
+    grunt.registerTask('build-dev', ['build-js', 'build-styles', 'copy:prod']);
+    grunt.registerTask('build-prod', ['useminPrepare', 'build-js', 'uglify', 'build-styles', 'htmlmin', 'usemin', 'copy:prod']);
 
-    grunt.registerTask('default', ['clean', 'bower:install', 'build-target']);
+    grunt.registerTask('default', ['clean', 'bower:install', 'build-prod']);
 
-    grunt.registerTask('dev', ['build-target', 'connect:dev', 'open:dev', 'watch']);
-    grunt.registerTask('live', ['build-target', 'connect:livereload', 'open:dev', 'watch']);
+    grunt.registerTask('dev', ['build-dev', 'connect:dev', 'open:dev', 'watch']);
+    grunt.registerTask('live', ['build-dev', 'connect:livereload', 'open:dev', 'watch']);
     grunt.registerTask('prod', ['build-target', 'open:prod', 'connect:prod']);
 
 };
