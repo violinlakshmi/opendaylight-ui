@@ -20,6 +20,9 @@
   "white": true,
   "globals": {
     "angular": true,
+    "document": true,
+    "opendaylight": true,
+    "_": true,
     "require": true,
     "define": true,
     "requirejs": true,

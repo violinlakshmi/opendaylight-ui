@@ -1,14 +1,5 @@
 'use strict';
 
-// Make sure to include the `ui.router` module as a dependency
-angular.module('opendaylight', ['ui.router']).run(
-  ['$rootScope', '$state', '$stateParams',
-  function ($rootScope, $state, $stateParams) {
-    $rootScope.$state = $state;
-    $rootScope.$stateParams = $stateParams;
-}]);
-
-
 angular.module('opendaylight').config(
   ['$stateProvider', '$urlRouterProvider',
   function ($stateProvider, $urlRouterProvider) {
@@ -26,6 +17,8 @@ angular.module('opendaylight').config(
 
     $stateProvider.state('login', {
         url: '/login',
-        templateUrl: 'partials/login.html'
+        templateUrl: 'partials/login.html',
+        controller: 'LoginController'
     });
+
 }]);
