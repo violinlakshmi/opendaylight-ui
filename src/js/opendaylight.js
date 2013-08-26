@@ -23,4 +23,9 @@ angular.module('opendaylight').config(
     $stateProvider.state('help', {
         url: '/help',
     });
+
+    $stateProvider.state('login', {
+        url: '/login',
+        templateUrl: 'partials/login.html'
+    });
 }]);
