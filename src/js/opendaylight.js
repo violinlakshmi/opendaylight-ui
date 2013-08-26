@@ -14,10 +14,12 @@ angular.module('opendaylight').config(
   function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider
       .otherwise('/');
+
     $stateProvider.state('index', {
         url: '/',
         templateUrl: 'index.html'
     });
+
     $stateProvider.state('help', {
         url: '/help',
     });

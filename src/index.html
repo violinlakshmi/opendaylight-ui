@@ -8,111 +8,110 @@
 </head>
 
 <body>
- <!-- #menu -->
- <div id="menu" class="navbar navbar-fixed-top">
-  <div class="navbar-inner row-fluid">
-   <div class="span9">
-    <a class="brand" href="/" title="FILL API VERSION HERE?">OpenDaylight</a>
-    <ul class="nav nav-tabs">
-      <li><a href="">Devices</a></li>
-      <li><a href="">Flows</a></li>
-    </ul>
-   </div>
-   <div class="span3">
-    <div id="toolbar" class="btn-group">
-     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-      <div class="icon-user"></div> {{username}} <span class="caret"></span>
-     </a>
-     <ul class="dropdown-menu">
-      <li><a href="#admin" id="admin" data-role="${role}"><div
-         class="icon-users"></div> Users</a></li>
-      <li><a href="#save" id="save"><div class="icon-save"></div>
-        Save</a></li>
-      <li><a href="#logout" id="logout"><div
-         class="icon-logout"></div> Logout</a></li>
-     </ul>
+  <!-- #menu -->
+  <div id="menu" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/" title="FILL API VERSION HERE?">OpenDaylight</a>
+      </div>
+
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="">Devices</a></li>
+          <li><a href="">Flows</a></li>
+        </ul>
+
+        <!-- User menu -->
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">User: {{username}} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#users">Users</a></li>
+              <li><a href="#save">Save</a></li>
+              <li><a href="#logout">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- navbar-collable -->
+    </div><!-- container -->
+  </div><!-- menu -->
+
+<!-- #footer -->
+  <div id="footer" class="navbar navbar-default navbar-fixed-bottom">
+  <div class="navbar-footer row">
+    <div class="alert hide" id="alert">
+      <button type="button" class="close">&times;</button>
+      <p></p>
     </div>
-   </div>
   </div>
- </div>
- <!-- END #menu -->
+</div>
+<!-- END #footer -->
 
- <!-- #footer -->
- <div id="footer" class="navbar navbar-fixed-bottom">
-  <div class="navbar-inner row-fluid">
-   <div class="alert hide" id="alert">
-    <button type="button" class="close">&times;</button>
-    <p></p>
-   </div>
-  </div>
- </div>
- <!-- END #footer -->
-
- <!-- #main -->
- <div id="main">
+<!-- #main -->
+<div id="main">
 
   <!-- #left -->
   <div id="left">
-   <!-- #left-top -->
-   <div id="left-top">
-    <div class="dash">
-     <ul class="nav nav-tabs">
-     </ul>
-     <div class="dashlet row-fluid"></div>
+    <!-- #left-top -->
+    <div id="left-top">
+      <div class="dash">
+        <ul class="nav nav-tabs"></ul>
+        <div class="dashlet row"></div>
+      </div>
     </div>
-   </div>
-   <!-- END #left-top -->
+    <!-- END #left-top -->
 
-   <!-- #left-bottom -->
-   <div id="left-bottom">
-    <div class="dash">
-     <ul class="nav nav-tabs">
-     </ul>
-     <div class="dashlet row-fluid"></div>
+    <!-- #left-bottom -->
+    <div id="left-bottom">
+      <div class="dash">
+        <ul class="nav nav-tabs"></ul>
+        <div class="dashlet row"></div>
+      </div>
     </div>
-   </div>
-   <!-- END #left-bottom -->
+    <!-- END #left-bottom -->
   </div>
   <!-- END #left -->
 
   <!-- #right -->
   <div id="right">
-   <!-- #right-top -->
-   <div id="right-top">
-    <div class="dash">
-     <div id="topology"></div>
+    <!-- #right-top -->
+    <div id="right-top">
+      <div class="dash">
+        <div id="topology"></div>
+      </div>
     </div>
-   </div>
-   <!-- END #right-top -->
+    <!-- END #right-top -->
 
-   <!-- #right-bottom -->
-   <div id="right-bottom">
-    <div class="dash">
-     <ul class="nav nav-tabs">
-     </ul>
-     <div class="dashlet row-fluid"></div>
+    <!-- #right-bottom -->
+    <div id="right-bottom">
+      <div class="dash">
+        <ul class="nav nav-tabs"></ul>
+        <div class="dashlet row"></div>
+      </div>
     </div>
-   </div>
-   <!-- END #right-bottom -->
+    <!-- END #right-bottom -->
   </div>
   <!-- END #right -->
 
- </div>
- <!-- END #main -->
-
- <!-- modal -->
- <div id="modal" class="modal hide fade">
-  <div class="modal-header">
-   <button type="button" class="close" data-dismiss="modal"
-    aria-hidden="true">&times;</button>
-   <button type="button" class="help" aria-hidden="true"
-    >?</button>
-   <h3></h3>
   </div>
-  <div class="modal-body"></div>
-  <div class="modal-footer"></div>
- </div>
- <!-- END modal -->
+  <!-- END #main -->
+
+  <!-- modal -->
+  <div id="modal" class="modal hide fade">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <button type="button" class="help" aria-hidden="true">?</button>
+      <h3></h3>
+    </div>
+    <div class="modal-body"></div>
+    <div class="modal-footer"></div>
+  </div>
+  <!-- END modal -->
 
 
 
