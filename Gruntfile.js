@@ -102,7 +102,7 @@ module.exports = function (grunt) {
         copy: {
             prod: {
                 files: [
-                    {expand: true, cwd:'src', src: ['templates/*.html'], dest: 'target'},
+                    {expand: true, cwd:'src', src: ['partials/*.html'], dest: 'target'},
                     {expand: true, cwd:'src/components/bootstrap', src: ['img/*'], dest: 'target'},
                     // Copy images (Logo etc)
                     {expand: true, cwd:'src/img', src: ['*.*'], dest: 'target/img'}
@@ -151,8 +151,7 @@ module.exports = function (grunt) {
                 },
                 files: [
                         'src/*.html',
-                        'src/**/*.css',
-                        'src/**/*.js'
+                        'src/partials/*.html'
                 ],
                 tasks: ['build-target']
             },
