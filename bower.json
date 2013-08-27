@@ -13,6 +13,7 @@
     "angular": "http://code.angularjs.org/snapshot/angular.js",
     "angular-route": "http://code.angularjs.org/snapshot/angular-route.js",
     "angular-ui-router": "http://cloudistic.me/angular-ui-router.min.js",
+    "restangular": "latest",
     "underscore": "latest",
     "underscore.string": "latest"
   }
