@@ -70,7 +70,7 @@ module.exports = function (grunt) {
                 dest: 'target/<%= pkg.name %>.min.js'
             }
         },
-        // HTML Tasks
+        // HTML Tasks - used only in production atm
         useminPrepare: {
             html: 'src/index.html',
             options: {
@@ -109,9 +109,13 @@ module.exports = function (grunt) {
             prod: {
                 files: [
                     {expand: true, cwd:'src', src: ['partials/*.html'], dest: 'target'},
-                    {expand: true, cwd:'src/components/bootstrap', src: ['img/*'], dest: 'target'},
-                    // Copy images (Logo etc)
-                    {expand: true, cwd:'src/img', src: ['*.*'], dest: 'target/img'}
+                    {expand: true, cwd:'src/img', src: ['*.*'], dest: 'target/img'},
+                ]
+            },
+            dev: {
+                files: [
+                    // In dev this is done by the minification tasks
+                    {expand: true, cwd:'src', src: ['*.html'], dest: 'target'}
                 ]
             }
         },
@@ -182,7 +186,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build-js', ['concat']);
     grunt.registerTask('build-styles', ['cssmin', 'less']);
 
-    grunt.registerTask('build-dev', ['build-js', 'build-styles', 'copy:prod']);
+    grunt.registerTask('build-dev', ['build-js', 'build-styles', 'copy:prod', 'copy:dev']);
     grunt.registerTask('build-prod', ['useminPrepare', 'build-js', 'uglify', 'build-styles', 'htmlmin', 'usemin', 'copy:prod']);
 
     grunt.registerTask('default', ['clean', 'bower:install', 'build-prod']);
