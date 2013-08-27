@@ -3,14 +3,16 @@
 var noAuthRoutes = ['/login'];
 
 // Make sure to include the `ui.router` module as a dependency
-angular.module('opendaylight', ['ui.router'])
+var opendaylight = angular.module('opendaylight', ['ui.router']).run(
+  ['$rootScope', '$state', '$stateParams', '$location', 'config', 'AuthenticationService',
+  function ($rootScope, $state, $stateParams, $location, config, AuthenticationService) {
 
-.run(
-  ['$rootScope', '$state', '$stateParams', '$location', 'AuthenticationService',
-  function ($rootScope, $state, $stateParams, $location, AuthenticationService) {
+    // Set the state and stateParams on the $rootScope to make it available anywhere
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 
+    $rootScope.config = config;
+    // Authentication stuff. Taken partially from: http://arthur.gonigberg.com/2013/06/29/angularjs-role-based-auth/
     var isClean = function (route) {
         return _.find(noAuthRoutes,
           function (noAuthRoute) {
@@ -26,6 +28,7 @@ angular.module('opendaylight', ['ui.router'])
     });
 }])
 
+// TODO: This should probably be changed to use broadcasts and present a user with a login form if auth is gone?
 .config(function ($httpProvider) {
   var logsOutUserOn401 = ['$q', '$location', function ($q, $location) {
     var success = function (response) {

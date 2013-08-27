@@ -12,7 +12,6 @@ angular.module('opendaylight')
         };
 
         $scope.loginSuccess = function (response) {
-
         }
 
         $scope.loginError = function (response) {

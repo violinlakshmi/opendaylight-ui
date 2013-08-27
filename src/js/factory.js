@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('opendaylight')
-    .factory('AuthenticationService', ['Base64', '$http', function (Base64, $http) {
+
+var opendaylight = angular.module('opendaylight')
+    .factory('AuthenticationService', ['Base64', '$http', 'config', function (Base64, $http, config) {
         var factory = {};
         var isAuthed = false;
 
@@ -15,10 +16,7 @@ angular.module('opendaylight')
 
         factory.doLogin = function (user, pw, cb, eb) {
             factory.setCredentials(user, pw);
-
-            // Do a verification
-            //$http();
-            $http.get('http://15.185.101.203:8080/controller/nb/v2/flow/default')
+            $http.get(config.endpoint + '/v2/flow/default')
                 .success(cb)
                 .error(eb);
         };

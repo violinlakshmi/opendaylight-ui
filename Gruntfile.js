@@ -53,10 +53,11 @@ module.exports = function (grunt) {
             dist: {
                 src: [
                     'src/js/module.js',
+                    'src/js/directives.js',
                     'src/js/states.js',
                     'src/js/factory.js',
-                    'src/js/controllers.js'
-                    //'src/js/config.js'
+                    'src/js/controllers.js',
+                    'src/js/config.js'
                     ],
                 dest: 'target/<%= pkg.name %>.js'
             }
