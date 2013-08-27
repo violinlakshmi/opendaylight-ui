@@ -3,32 +3,7 @@ opendaylight-ui
 
 OpenDaylight SDN Controller - UI (AngularJS 100% Client Side)
 
-The easy way
-------------
-
-#### Clone the repository
-
-    git clone http://github.com/ekarlso/opendaylight-ui
-    cd opendaylight-ui
-
-#### Install deps (nvm, node, npm, bower, grunt)
-
-    ./tools/helper.sh install_deps
-
-#### Install JS deps (Angular, etc)
-
-    ./tools/helper.sh install_ui_deps
-
-#### Now you can either build it using grunt or via the helper.
-More or the less useless because it's only grunt.
-
-    ./tools/helper.sh build
-
-More interesting, build a target.tar.gz for deployment
-
-    ./tools/helper.sh build_dist
-
-The hard way
+Setting it up
 ------------
     # curl https://raw.github.com/creationix/nvm/master/install.sh | sh
 
@@ -47,16 +22,16 @@ The hard way
     # nvm ls-remote
     v0.1.14 ... ...      ...
     ...
-    ...     ... v0.10.10 ...
+    ...     ... v0.10.17 ...
     ...     ... ...      ...
 
-    # nvm install 0.10.10
+    # nvm install 0.10.17
     ######################################################################## 100.0%
-    Now using node v0.10.10
+    Now using node v0.10.17
 
     # nvm ls
     v0.10.7
-    current:   v0.10.10
+    current:   v0.10.17
 
     # npm install -g grunt-cli
     # npm install -g bower
@@ -65,16 +40,27 @@ The hard way
     # cd opendaylight-ui
     # npm install
 
-#### Build OpenDaylight UI
+#### Install and copy bower deps
 
-    # grunt
-
+    # grunt bower
 
 Starting a webserver using the grunt command
 --------------------------------------------
+The below steps will also open a webbrowser towards the server on localhost.
+
+None of the below tasks will perform minification except Production
+
 #### Development Environment
+Does not reload in the browser when you do changes but updates files on
+changes.
 
     # grunt dev
+
+#### Live Development Environment
+This updates all the files and reloads the page in the browser for each each
+time a file is changes (Recommended)
+
+    # grunt live
 
 #### Production Environment
 
