@@ -2,7 +2,7 @@
 
 
 angular.module('opendaylight')
-    .controller('LoginController', function ($scope, AuthenticationService) {
+    .controller('LoginController', function ($scope, AuthenticationService, $location) {
         $scope.username = 'admin';
         $scope.password = 'admin';
         $scope.authed = AuthenticationService.isAuthed();
@@ -12,6 +12,8 @@ angular.module('opendaylight')
         };
 
         $scope.loginSuccess = function (response) {
+            console.log('change');
+            $location.path('/')
         }
 
         $scope.loginError = function (response) {

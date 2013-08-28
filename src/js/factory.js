@@ -4,36 +4,39 @@
 var opendaylight = angular.module('opendaylight')
     .factory('AuthenticationService', ['Base64', '$http', 'config', function (Base64, $http, config) {
         var factory = {};
-        var isAuthed = false;
+        var authed = false;
 
         var username = null;
-        var password = null;
 
         // Is the user currently authed?
         factory.isAuthed = function () {
-            return isAuthed
+            return authed
         };
 
         factory.doLogin = function (user, pw, cb, eb) {
             factory.setCredentials(user, pw);
             $http.get(config.endpoint + '/v2/flow/default')
-                .success(cb)
-                .error(eb);
+                .success(function (resp) {
+                    authed = true;
+                    username = user;
+                    cb(resp);
+                })
+                .error(function (resp) {
+                    authed = false;
+                    eb(resp);
+                });
         };
 
-        // Set credentials
-        factory.setCredentials = function (user, pw) {
-            username = user;
-            password = pw;
-
-            $http.defaults.headers.common.Authorization = factory.getBasic();
-        };
-
-        // Get basic credentials with username + password
-        factory.getBasic = function () {
-            var string = username + ':' + password;
-            return 'Basic ' + Base64.encode(string);
+        factory.doLogout = function () {
+            authed = false;
         }
+
+        // Set Authorization header to username + password
+        factory.setCredentials = function (user, pw) {
+            var string = username + ':' + pw;
+            var auth = 'Basic ' + Base64.encode(string);
+            $http.defaults.headers.common.Authorization = auth;
+        };
 
         return factory;
     }])
