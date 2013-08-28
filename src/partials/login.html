@@ -71,7 +71,7 @@ width: 400px;
 </style>
 
 <div class="container">
-  <div class="row" ng-controller="LoginController">
+  <div class="row" ng-controller="LoginController" ng-show="online">
     <div id="logo"></div>
 
     <form class="form-signin">
@@ -86,11 +86,13 @@ width: 400px;
 
   </div>
   <div class="row">
+    <div class="alert alert-danger" ng-hide='online'>UNAVAILABLE</div>
+  
     <h3>Information</h3>
+    <span ng-show='online'>Username: <em>{{username}}</em> - Password Length: <em>{{password.length}}</em><br/></span>
     <span>
-      Username: <em>{{username}}</em> - Password Length: <em>{{password.length}}</em><br/>
-      Current Endpoint URL (Controller NB API):<br/>
-      <em>{{config.endpoint}}</em>
+      Controller Northbound API address:<br/>
+      <em>{{config.endpoint}}</em> 
     </span>
   </div>
 </div>

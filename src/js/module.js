@@ -4,8 +4,8 @@ var noAuthRoutes = ['/login'];
 
 // Make sure to include the `ui.router` module as a dependency
 var opendaylight = angular.module('opendaylight', ['ui.router']).run(
-  ['$rootScope', '$state', '$stateParams', '$location', 'config', 'AuthenticationService',
-  function ($rootScope, $state, $stateParams, $location, config, AuthenticationService) {
+  ['$rootScope', '$state', '$stateParams', '$location', 'config', 'AuthService',
+  function ($rootScope, $state, $stateParams, $location, config, AuthService) {
 
     // Set the state and stateParams on the $rootScope to make it available anywhere
     $rootScope.$state = $state;
@@ -22,7 +22,9 @@ var opendaylight = angular.module('opendaylight', ['ui.router']).run(
     };
 
     $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
-      if (!isClean($location.url()) && !AuthenticationService.isAuthed()) {
+      console.log('Authed: ' + AuthService.isAuthed() + ' Clean: ' + isClean($location.url()));
+      console.log(' URL: ' + $location.url());
+      if (!isClean($location.url()) && !AuthService.isAuthed()) {
         $location.path('/login');
       }
     });
