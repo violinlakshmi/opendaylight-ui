@@ -11,7 +11,9 @@ var opendaylight = angular.module('opendaylight', ['ui.router']).run(
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 
+    // Make config always available
     $rootScope.config = config;
+
     // Authentication stuff. Taken partially from: http://arthur.gonigberg.com/2013/06/29/angularjs-role-based-auth/
     var isClean = function (route) {
         return _.find(noAuthRoutes,
@@ -22,12 +24,18 @@ var opendaylight = angular.module('opendaylight', ['ui.router']).run(
     };
 
     $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
-      console.log('Authed: ' + AuthService.isAuthed() + ' Clean: ' + isClean($location.url()));
-      console.log(' URL: ' + $location.url());
       if (!isClean($location.url()) && !AuthService.isAuthed()) {
         $location.path('/login');
       }
     });
+
+    $rootScope.$watch(
+      function () {
+        return AuthService.isAuthed();
+      },
+      function (authed) {
+        $rootScope.authed = authed;
+      });
 }])
 
 // TODO: This should probably be changed to use broadcasts and present a user with a login form if auth is gone?
@@ -55,6 +63,5 @@ var opendaylight = angular.module('opendaylight', ['ui.router']).run(
   }];
 
   $httpProvider.responseInterceptors.push(logsOutUserOn401);
-  $httpProvider.defaults.withCredentials = true;
 });
 

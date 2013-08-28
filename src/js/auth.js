@@ -1,8 +1,8 @@
 angular.module('opendaylight')
 
 .controller('LoginController', ['$scope', '$location', 'AuthService', 'NBApiStatSvc', function ($scope, $location, AuthService, NBApiStatSvc) {
-  $scope.username = 'admin';
-  $scope.password = 'admin';
+  $scope.username = null;
+  $scope.password = null;
   $scope.online = true;
 
   /*$scope.stat = NBApiStatSvc.check(function() {
@@ -10,55 +10,55 @@ angular.module('opendaylight')
   })*/
 
   $scope.doLogin = function() {
-    AuthService.doLogin($scope.username, $scope.password, $scope.loginSuccess, $scope.loginError);
+    AuthService.login($scope.username, $scope.password, $scope.success, $scope.error);
   };
 
-  $scope.loginSuccess = function (response) {
+  $scope.success = function (response) {
     $location.path('/');
   }
 
-  $scope.loginError = function (response) {
+  $scope.error = function (response) {
   }
+}])
 
+.controller('LogoutController', ['$scope', '$location', 'AuthService', function ($scope, $location, AuthService) {
+  AuthService.logout(function() {
+    $location.path('/login');
+  });
 }])
 
 
 .factory('AuthService', ['Base64', '$http', 'config', function (Base64, $http, config) {
   var factory = {};
-  var authed = false;
-
-  var username = null;
 
   // Is the user currently authed?
   factory.isAuthed = function () {
-    return authed
+    var authed = sessionStorage.user ? true : false;
+    return authed;
   };
 
-  factory.doLogin = function (user, pw, cb, eb) {
-      console.log("Logging in " + user)
+  factory.login = function (user, pw, cb, eb) {
       factory.setCredentials(user, pw);
 
       $http.get(config.endpoint + '/v2/flow/default')
         .success(function (resp) {
-          authed = true;
-          username = user;
+          sessionStorage.user = user;
           cb(resp);
         })
         .error(function (resp) {
-          authed = false;
           eb(resp);
         });
   };
 
-  factory.doLogout = function () {
-    console.log("Logging out");
-    authed = false;
+  factory.logout = function (cb) {
+    delete sessionStorage.user;
+    delete $http.defaults.headers.common.Authorization;
+    cb();
   }
 
   // Set Authorization header to username + password
   factory.setCredentials = function (user, pw) {
     var string = user + ':' + pw;
-    console.log("Setting credentials " + string)
 
     var auth = 'Basic ' + Base64.encode(string);
     $http.defaults.headers.common.Authorization = auth;
