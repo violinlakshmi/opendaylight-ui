@@ -1,15 +1,20 @@
 angular.module('opendaylight')
 
 .controller('LoginController', ['$scope', '$location', 'AuthService', 'NBApiStatSvc', function ($scope, $location, AuthService, NBApiStatSvc) {
-  $scope.username = null;
-  $scope.password = null;
+  $scope.username = 'admin';
+  $scope.password = 'admin';
   $scope.online = true;
 
-  /*$scope.stat = NBApiStatSvc.check(function() {
-    $scope.online = true;
-  })*/
+  /*$scope.updateStatus = function () {
+    NBApiStatSvc.check(function() {
+      $scope.online = true;
+    });
+  };
 
-  $scope.doLogin = function() {
+  $scope.updateStatus()
+  */
+
+  $scope.login = function() {
     AuthService.login($scope.username, $scope.password, $scope.success, $scope.error);
   };
 
@@ -36,6 +41,13 @@ angular.module('opendaylight')
     var authed = sessionStorage.user ? true : false;
     return authed;
   };
+
+  // Return the current user object
+  factory.getUser = function () {
+    var user = sessionStorage.user;
+    console.log(user);
+    return user;
+  }
 
   factory.login = function (user, pw, cb, eb) {
       factory.setCredentials(user, pw);

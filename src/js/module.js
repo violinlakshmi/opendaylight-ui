@@ -35,11 +35,12 @@ var opendaylight = angular.module('opendaylight', ['ui.router']).run(
       },
       function (authed) {
         $rootScope.authed = authed;
+        $rootScope.username = AuthService.getUser();
       });
 }])
 
 // TODO: This should probably be changed to use broadcasts and present a user with a login form if auth is gone?
-.config(function ($httpProvider) {
+.config(['$httpProvider', function ($httpProvider) {
   var logsOutUserOn401 = ['$q', '$location', function ($q, $location) {
     var success = function (response) {
       return response;
@@ -63,5 +64,5 @@ var opendaylight = angular.module('opendaylight', ['ui.router']).run(
   }];
 
   $httpProvider.responseInterceptors.push(logsOutUserOn401);
-});
+}]);
 
