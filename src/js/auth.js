@@ -51,7 +51,7 @@ Auth flow:
 
   // Return the current user object
   factory.getUser = function () {
-    var user = $cookieStore.get('opendaylight.user');
+    var user = $cookieStore.get('opendaylight.user') || null;
     return user;
   }
 
@@ -59,16 +59,17 @@ Auth flow:
     $cookieStore.put('opendaylight.user', user)
   }
 
-  factory.unsetUser = function(user) {
+  factory.unsetUser = function() {
     $cookieStore.remove('opendaylight.user');
   }
 
   factory.login = function (user, pw, cb, eb) {
-      factory.setCredentials(user, pw);
+      factory.setBasic(user, pw);
 
       $http.get(config.endpoint + '/v2/flow/default')
         .success(function (data, status, headers, config) {
           factory.setUser({username: user});
+          factory.unsetBasic()
           cb(data);
         })
         .error(function (resp) {
@@ -77,14 +78,13 @@ Auth flow:
   };
 
   factory.logout = function (cb) {
-    if (factory.getUser())
-      factory.unsetUser(factory.getUser())
-    delete $http.defaults.headers.common.Authorization;
+    factory.unsetBasic();
+    factory.unsetUser();
     cb();
   }
 
   // Set Authorization header to username + password
-  factory.setCredentials = function (user, pw) {
+  factory.setBasic = function (user, pw) {
     var string = user + ':' + pw;
 
     var auth = 'Basic ' + Base64.encode(string);
@@ -92,7 +92,9 @@ Auth flow:
   };
 
   factory.unsetBasic = function () {
-    delete $http.default.headers.common.Authorization;
+    if ($http.defaults.headers.common.Authorization !== null) {
+      delete $http.defaults.headers.common.Authorization
+    }
   }
 
   return factory;
