@@ -1,0 +1,22 @@
+<style>
+.node {
+  padding-bottom: 10px;
+}
+</style>
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      Displaying {{npData.length}} nodes<br/>
+
+      <div ng-repeat="np in npData" class="node">
+        <a ui-sref="nodes.details({nodeId: np.node['@id'], nodeType: np.node['@type']})">{{np.node['@type']}}/{{np.node['@id']}}</a>
+        <br/>
+        Description: {{np.properties.description.value}} <br/>
+        Mac: {{np.properties.macAddress.value}}<br/>
+      </div>
+    </div>
+
+    <!-- Here is the details view-->
+    <div ui-view></div>
+  </div><!-- row -->
+</div>

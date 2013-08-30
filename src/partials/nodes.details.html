@@ -1,0 +1,24 @@
+<div class="col-md-4">
+  <h4>Viewing {{$stateParams['nodeId']}}</h4>
+
+  <h5>Ports</h5>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>State</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="table table-condensed" ng-repeat="ncp in ncpData[$stateParams['nodeId']]">
+        <td>{{ncp.properties.name.value}}</td>
+        <td>{{ncp.nodeconnector['@type']}}</td>
+        <td>
+          <state-icon value="{{ncp.properties.state.value}}"></state-icon>
+          <port-state value="{{ncp.properties.state.value}}"></port-state>
+        </td>
+      </tr>
+    </tbody>
+  </div>
+</div>

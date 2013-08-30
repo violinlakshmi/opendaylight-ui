@@ -15,7 +15,7 @@ opendaylight.factory('NodeSvc', ['Restangular', function (Restangular) {
     return svc
 }]);
 
-opendaylight.controller('DevicesCtrl', ['$scope', 'NodeSvc', function($scope, NodeSvc) {
+opendaylight.controller('NodesCtrl', ['$scope', 'NodeSvc', function($scope, NodeSvc) {
     $scope.ncpData = {}
 
     // Fetch the nodes then fetch more info about each node
@@ -36,10 +36,20 @@ opendaylight.controller('DevicesCtrl', ['$scope', 'NodeSvc', function($scope, No
 }]);
 
 opendaylight.config(['$stateProvider', function($stateProvider) {
-    $stateProvider.state('devices', {
-        url: '/devices',
-        templateUrl: 'partials/devices.html',
-        controller: 'DevicesCtrl'
+    $stateProvider.state('nodes', {
+        url: '/nodes',
+        templateUrl: 'partials/nodes.html',
+        controller: 'NodesCtrl'
     });
 
+    $stateProvider.state('nodes.details', {
+        url: '/{nodeType}/{nodeId}',
+        views: {
+            '': {
+                templateUrl: 'partials/nodes.details.html',
+                controller: ['$scope', '$stateParams', function ($scope, $stateParams) {
+                }]
+            }
+        }
+    });
 }])

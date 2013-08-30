@@ -23,7 +23,7 @@
 
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li class="{ active: $state.includes('devices') }"><a ui-sref="devices">Devices</a></li>
+          <li class="{ active: $state.includes('nodes') }"><a ui-sref="nodes">Nodes</a></li>
           <li class="{ active: $state.includes('flows') }"><a ui-sref="flows">Flows</a></li>
           <li class="{ active: $state.includes('topology') }"><a ui-sref="topology">Topology</a></li>
           <li class="{ active: $state.includes('help') }"><a ui-sref="help">Help</a></li>
@@ -50,6 +50,7 @@
     <!-- #footer -->
     <div id="footer" class="navbar navbar-default navbar-fixed-bottom">
       <span>Current state path: {{$state.current.name}}</span>
+      <span>stateParams: {{$stateParams}}</span>
       <div class="navbar-footer row">
         <div class="alert hide" id="alert">
           <button type="button" class="close">&times;</button>
