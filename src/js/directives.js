@@ -25,11 +25,13 @@ angular.module('opendaylight')
         scope: {
             stateValue: '@value'
         },
-        template: '<span>{{stateString}}</span>',
+        template: '<span ng-style="{color: stateColor}">{{stateString}}</span>',
         controller: function ($scope) {
-            var states = {0: 'DOWN', 1: 'UP'}
-            $scope.stateString = states[$scope.stateValue]
-            console.log($scope.stateValue)
+            var states = {0: 'DOWN', 1: 'UP'};
+            var colors = {0: 'red', 1: 'green'};
+
+            $scope.stateString = states[$scope.stateValue];
+            $scope.stateColor = colors[$scope.stateValue];
         }
     }
 })
