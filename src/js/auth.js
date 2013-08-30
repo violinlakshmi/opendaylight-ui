@@ -1,5 +1,12 @@
 angular.module('opendaylight')
 
+/*
+Auth flow:
+  1. On login do a api req with basic auth header towards the api
+  2. on success set the cookie returned by the api
+  3. delete the auth header
+*/
+
 .controller('LoginController', ['$scope', '$location', 'AuthService', 'NBApiStatSvc', function ($scope, $location, AuthService, NBApiStatSvc) {
   $scope.username = 'admin';
   $scope.password = 'admin';
@@ -33,29 +40,36 @@ angular.module('opendaylight')
 }])
 
 
-.factory('AuthService', ['Base64', '$http', 'config', function (Base64, $http, config) {
+.factory('AuthService', ['$http', '$cookieStore', 'config', 'Base64', function ($http, $cookieStore, config, Base64) {
   var factory = {};
 
   // Is the user currently authed?
   factory.isAuthed = function () {
-    var authed = sessionStorage.user ? true : false;
+    var authed = factory.getUser() ? true : false;
     return authed;
   };
 
   // Return the current user object
   factory.getUser = function () {
-    var user = sessionStorage.user;
-    console.log(user);
+    var user = $cookieStore.get('opendaylight.user');
     return user;
+  }
+
+  factory.setUser = function (user) {
+    $cookieStore.put('opendaylight.user', user)
+  }
+
+  factory.unsetUser = function(user) {
+    $cookieStore.remove('opendaylight.user');
   }
 
   factory.login = function (user, pw, cb, eb) {
       factory.setCredentials(user, pw);
 
       $http.get(config.endpoint + '/v2/flow/default')
-        .success(function (resp) {
-          sessionStorage.user = user;
-          cb(resp);
+        .success(function (data, status, headers, config) {
+          factory.setUser({username: user});
+          cb(data);
         })
         .error(function (resp) {
           eb(resp);
@@ -63,7 +77,8 @@ angular.module('opendaylight')
   };
 
   factory.logout = function (cb) {
-    delete sessionStorage.user;
+    if (factory.getUser())
+      factory.unsetUser(factory.getUser())
     delete $http.defaults.headers.common.Authorization;
     cb();
   }
@@ -75,6 +90,10 @@ angular.module('opendaylight')
     var auth = 'Basic ' + Base64.encode(string);
     $http.defaults.headers.common.Authorization = auth;
   };
+
+  factory.unsetBasic = function () {
+    delete $http.default.headers.common.Authorization;
+  }
 
   return factory;
 }])

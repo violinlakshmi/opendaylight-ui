@@ -3,7 +3,7 @@
 var noAuthRoutes = ['/login'];
 
 // Make sure to include the `ui.router` module as a dependency
-var opendaylight = angular.module('opendaylight', ['ui.router']).run(
+var opendaylight = angular.module('opendaylight', ['ui.router', 'ngCookies']).run(
   ['$rootScope', '$state', '$stateParams', '$location', 'config', 'AuthService',
   function ($rootScope, $state, $stateParams, $location, config, AuthService) {
 
@@ -35,7 +35,7 @@ var opendaylight = angular.module('opendaylight', ['ui.router']).run(
       },
       function (authed) {
         $rootScope.authed = authed;
-        $rootScope.username = AuthService.getUser();
+        $rootScope.user = AuthService.getUser();
       });
 }])
 
@@ -64,5 +64,6 @@ var opendaylight = angular.module('opendaylight', ['ui.router']).run(
   }];
 
   $httpProvider.responseInterceptors.push(logsOutUserOn401);
+  $httpProvider.defaults.withCredentials = true
 }]);
 

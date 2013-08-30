@@ -32,7 +32,7 @@
           <!-- User menu -->
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">User: {{username}} <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">User: {{user.username}} <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="#users">Users</a></li>
                 <li><a href="#save">Save</a></li>
@@ -56,9 +56,9 @@
     <!-- END #footer -->
 
     <!-- #main hide for now..-->
-    <div id="main" ng-show="hidden">
+    <div id="main">
       <!-- #left -->
-      <div id="left">
+      <div id="left" ui-view>
         <!-- #left-top -->
         <div id="left-top">
           <div class="dash">
@@ -121,6 +121,7 @@
   <script src="components/jquery/jquery.min.js"></script>
   <script src="components/angular/index.js"></script>
   <script src="components/angular-route/index.js"></script>
+  <script src="components/angular-cookies/index.js"></script>
   <script src="components/angular-ui-router/index.js"></script>
   <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="components/underscore/underscore-min.js"></script>
