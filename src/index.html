@@ -8,55 +8,47 @@
 </head>
 
 <body>
-  <div ng-show="authed">
-    <!-- #menu -->
-    <div id="menu" class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/" title="ODL UI">OpenDaylight</a>
-        </div>
 
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="{ active: $state.includes('devices') }"><a ui-sref="devices">Devices</a></li>
-            <li class="{ active: $state.includes('flows') }"><a ui-sref="flows">Flows</a></li>
-            <li class="{ active: $state.includes('topology') }"><a ui-sref="topology">Topology</a></li>
-            <li class="{ active: $state.includes('help') }"><a ui-sref="help">Help</a></li>
-          </ul>
-
-          <!-- User menu -->
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">User: {{user.username}} <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#users">Users</a></li>
-                <li><a href="#save">Save</a></li>
-                <li><a href="#logout">Logout</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div><!-- navbar-collable -->
-      </div><!-- container -->
-    </div><!-- menu -->
-
-    <!-- #footer -->
-      <div id="footer" class="navbar navbar-default navbar-fixed-bottom">
-      <div class="navbar-footer row">
-        <div class="alert hide" id="alert">
-          <button type="button" class="close">&times;</button>
-          <p></p>
-        </div>
+  <!-- #menu -->
+  <div id="menu" class="navbar navbar-default navbar-static-top" ng-show="authed">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/" title="ODL UI">OpenDaylight</a>
       </div>
+
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="{ active: $state.includes('devices') }"><a ui-sref="devices">Devices</a></li>
+          <li class="{ active: $state.includes('flows') }"><a ui-sref="flows">Flows</a></li>
+          <li class="{ active: $state.includes('topology') }"><a ui-sref="topology">Topology</a></li>
+          <li class="{ active: $state.includes('help') }"><a ui-sref="help">Help</a></li>
+        </ul>
+
+        <!-- User menu -->
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">User: {{user.username}} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#users">Users</a></li>
+              <li><a href="#save">Save</a></li>
+              <li><a href="#logout">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- navbar-collable -->
     </div>
-    <!-- END #footer -->
+  </div><!-- menu -->
+
+  <div class="container" ng-show="authed">
+    <div ui-view></div>
 
     <!-- #main hide for now..-->
-    <div id="main">
+    <div id="main" ng-show="hidden">
       <!-- #left -->
       <div id="left" ui-view>
         <!-- #left-top -->
@@ -99,23 +91,33 @@
         <!-- END #right-bottom -->
       </div>
       <!-- END #right -->
-
     </div>
-    <!-- END #main -->
 
-    <!-- modal -->
-    <div id="modal" class="modal hide fade">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <button type="button" class="help" aria-hidden="true">?</button>
-        <h3></h3>
+    <!-- #footer -->
+    <div id="footer" class="navbar navbar-default navbar-fixed-bottom">
+      <div class="navbar-footer row">
+        <div class="alert hide" id="alert">
+          <button type="button" class="close">&times;</button>
+          <p></p>
+        </div>
       </div>
-      <div class="modal-body"></div>
-      <div class="modal-footer"></div>
     </div>
-    <!-- END modal -->
-  </div><!-- end authed -->
+    <!-- END #footer -->
+  </div>
   <div ng-hide="authed" ui-view></div>
+
+  <!-- modal -->
+  <div id="modal" class="modal hide fade">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <button type="button" class="help" aria-hidden="true">?</button>
+      <h3></h3>
+    </div>
+    <div class="modal-body"></div>
+    <div class="modal-footer"></div>
+  </div>
+  <!-- END modal -->
+
 
   <!-- For now use trunk / snapshot of angular-->
   <script src="components/jquery/jquery.min.js"></script>
@@ -123,6 +125,7 @@
   <script src="components/angular-route/index.js"></script>
   <script src="components/angular-cookies/index.js"></script>
   <script src="components/angular-ui-router/index.js"></script>
+  <script src="components/restangular/src/restangular.js"></script>
   <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="components/underscore/underscore-min.js"></script>
   <script src="components/underscore.string/lib/underscore.string.js"></script>

@@ -31,15 +31,4 @@ angular.module('opendaylight').config(
         url: '/flows',
         templateUrl: 'partials/flows.html'
     });
-
-    $stateProvider.state('devices', {
-        url: '/devices',
-        templateUrl: 'partials/devices.html'
-    });
-
-    $stateProvider.state('topology', {
-        url: '/topology',
-        templateUrl: 'partials/topology.html'
-    });
-
 }]);

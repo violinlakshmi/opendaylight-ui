@@ -58,7 +58,8 @@ module.exports = function (grunt) {
                     'src/js/states.js',
                     'src/js/factory.js',
                     'src/js/controllers.js',
-                    'src/js/config.js'
+                    'src/js/config.js',
+                    'src/js/**/*.js'
                     ],
                 dest: 'target/<%= pkg.name %>.js'
             }
@@ -168,7 +169,7 @@ module.exports = function (grunt) {
                 tasks: ['build-dev']
             },
             js: {
-                files: 'src/js/*.js',
+                files: ['src/js/*.js', 'src/js/**/*.js'],
                 tasks: ['build-js'],
                 options: {
                     debounceDelay: 100,
