@@ -44,55 +44,9 @@
     </div>
   </div><!-- menu -->
 
-  <div class="container" ng-show="authed">
-    <div ui-view></div>
+  <div ui-view></div>
 
-    <!-- #main hide for now..-->
-    <div id="main" ng-show="hidden">
-      <!-- #left -->
-      <div id="left" ui-view>
-        <!-- #left-top -->
-        <div id="left-top">
-          <div class="dash">
-            <ul class="nav nav-tabs"></ul>
-            <div class="dashlet row"></div>
-          </div>
-        </div>
-        <!-- END #left-top -->
-
-        <!-- #left-bottom -->
-        <div id="left-bottom">
-          <div class="dash">
-            <ul class="nav nav-tabs"></ul>
-            <div class="dashlet row"></div>
-          </div>
-        </div>
-        <!-- END #left-bottom -->
-      </div>
-      <!-- END #left -->
-
-      <!-- #right -->
-      <div id="right">
-        <!-- #right-top -->
-        <div id="right-top">
-          <div class="dash">
-            <div id="topology"></div>
-          </div>
-        </div>
-        <!-- END #right-top -->
-
-        <!-- #right-bottom -->
-        <div id="right-bottom">
-          <div class="dash">
-            <ul class="nav nav-tabs"></ul>
-            <div class="dashlet row"></div>
-          </div>
-        </div>
-        <!-- END #right-bottom -->
-      </div>
-      <!-- END #right -->
-    </div>
-
+  <div class="container">
     <!-- #footer -->
     <div id="footer" class="navbar navbar-default navbar-fixed-bottom">
       <span>Current state path: {{$state.current.name}}</span>
@@ -105,19 +59,6 @@
     </div>
     <!-- END #footer -->
   </div>
-  <div ng-hide="authed" ui-view></div>
-
-  <!-- modal -->
-  <div id="modal" class="modal hide fade">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <button type="button" class="help" aria-hidden="true">?</button>
-      <h3></h3>
-    </div>
-    <div class="modal-body"></div>
-    <div class="modal-footer"></div>
-  </div>
-  <!-- END modal -->
 
 
   <!-- For now use trunk / snapshot of angular-->
