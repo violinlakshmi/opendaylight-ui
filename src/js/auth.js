@@ -64,17 +64,17 @@ Auth flow:
   }
 
   factory.login = function (user, pw, cb, eb) {
-      factory.setBasic(user, pw);
+    factory.setBasic(user, pw);
 
-      $http.get(config.endpoint + '/v2/flow/default')
-        .success(function (data, status, headers, config) {
-          factory.setUser({username: user});
-          factory.unsetBasic()
-          cb(data);
-        })
-        .error(function (resp) {
-          eb(resp);
-        });
+    $http.get(config.endpoint + '/v2/flow/default')
+      .success(function (data, status, headers, config) {
+        factory.setUser({username: user});
+        factory.unsetBasic()
+        cb(data);
+      })
+      .error(function (resp) {
+        eb(resp);
+      });
   };
 
   factory.logout = function (cb) {

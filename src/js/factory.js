@@ -1,23 +1,32 @@
 'use strict';
 
-/* 
-Anything that doesn't go into a seperate file (as in is deemed too big for here) goes here. 
+/*
+Anything that doesn't go into a seperate file (as in is deemed too big for here) goes here.
 
 Examples: Auth logic
 */
 
-angular.module('opendaylight')
+opendaylight.factory('NBApiSvc', ['Restangular', function (Restangular) {
+  var svc = {};
 
-.factory('NBApiStatSvc', ['$http', 'config', function ($http, config) {
-	var svc = {};
+  svc.base = function(nbName, container) {
+    var container = container || 'default';
+    return Restangular.one(nbName, container);
+  }
 
-	svc.check = function (cb) {
-		$http.get(config.endpoint_base).success(function (resp) {cb()})
-	}
-	return svc;
+  return svc
 }])
-    
-.factory('UserService', function () {
+
+opendaylight.factory('NBApiStatSvc', ['$http', 'config', function ($http, config) {
+  var svc = {};
+
+  svc.check = function (cb) {
+  	$http.get(config.endpoint_base).success(function (resp) {cb()})
+  }
+  return svc;
+}])
+
+opendaylight.factory('UserService', function () {
   var user = null;
   var userRoles = [];
 

@@ -1,55 +1,57 @@
 
-opendaylight.factory('NodeSvc', ['Restangular', function (Restangular) {
-    var svc = {
-        'rest': Restangular
-    };
-
-    svc.getNodes = function (container) {
-        return Restangular.all('switch/' + (container || 'default') + '/nodes').getList();
+opendaylight.factory('SwitchSvc', ['NBApiSvc', function (NBApiSvc) {
+  var svc = {
+    base: function(container) {
+      return NBApiSvc.base('switch', container)
     }
+  }
 
-    svc.getNode = function(container, type, id) {
-        return Restangular.one('switch', (container || 'default')).one('node', type).one(id).get()
-    }
+  // URL for nodes
+  svc.nodesUrl = function (container) {
+    return svc.base(container).all('nodes')
+  }
 
-    return svc
+  // URL for a node
+  svc.nodeUrl = function(container, type, id) {
+    return svc.base(container).one('node', type).one(id)
+  }
+
+  return svc
 }]);
 
-opendaylight.controller('NodesCtrl', ['$scope', 'NodeSvc', function($scope, NodeSvc) {
-    $scope.ncpData = {}
+opendaylight.controller('NodesCtrl', ['$scope', 'SwitchSvc', function($scope, SwitchSvc) {
+  $scope.ncpData = {}
 
-    // Fetch the nodes then fetch more info about each node
-    NodeSvc.getNodes().then(function(npData) {
-        $scope.npData = npData.nodeProperties;
+  // Fetch the nodes then fetch more info about each node
+  SwitchSvc.nodesUrl().getList().then(function(npData) {
+    $scope.npData = npData.nodeProperties;
 
-        angular.forEach(npData.nodeProperties, function (np) {
-            NodeSvc.getNode('default', np.node['@type'], np.node['@id']).then(
-                function(ncp, test) {
-                    $scope.ncpData[np.node['@id']] = ncp.nodeConnectorProperties
-                }
-            )
-
-
-        })
-        //$scope.properties = data;
-    });
+    angular.forEach(npData.nodeProperties, function (np) {
+      SwitchSvc.nodeUrl(null, np.node['@type'], np.node['@id']).get().then(
+        function(ncp, test) {
+          $scope.ncpData[np.node['@id']] = ncp.nodeConnectorProperties
+        }
+      )
+    })
+    //$scope.properties = data;
+  });
 }]);
 
 opendaylight.config(['$stateProvider', function($stateProvider) {
-    $stateProvider.state('nodes', {
-        url: '/nodes',
-        templateUrl: 'partials/nodes.html',
-        controller: 'NodesCtrl'
-    });
+  $stateProvider.state('nodes', {
+    url: '/nodes',
+    templateUrl: 'partials/nodes.html',
+    controller: 'NodesCtrl'
+  });
 
-    $stateProvider.state('nodes.details', {
-        url: '/{nodeType}/{nodeId}',
-        views: {
-            '': {
-                templateUrl: 'partials/nodes.details.html',
-                controller: ['$scope', '$stateParams', function ($scope, $stateParams) {
-                }]
-            }
-        }
-    });
+  $stateProvider.state('nodes.details', {
+    url: '/{nodeType}/{nodeId}',
+    views: {
+      '': {
+        templateUrl: 'partials/nodes.details.html',
+        controller: ['$scope', '$stateParams', function ($scope, $stateParams) {
+        }]
+      }
+    }
+  });
 }])

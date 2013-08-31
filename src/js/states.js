@@ -26,9 +26,4 @@ angular.module('opendaylight').config(
         url: '/logout',
         controller: 'LogoutController'
     })
-
-    $stateProvider.state('flows', {
-        url: '/flows',
-        templateUrl: 'partials/flows.html'
-    });
 }]);

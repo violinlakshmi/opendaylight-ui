@@ -1,21 +1,21 @@
 
 opendaylight.factory('TopologySvc', ['Restangular', function (Restangular) {
-    var svc = {
-        'rest': Restangular
-    };
+  var svc = {
+    'rest': Restangular
+  };
 
-    return svc
+  return svc
 }]);
 
 opendaylight.controller('TopologyCtrl', ['$scope', 'TopologySvc', function($scope, TopologySvc) {
-    $scope.topology = TopologySvc.rest.all('topology/default').getList()
+  $scope.topology = TopologySvc.rest.all('topology/default').getList()
 }]);
 
 opendaylight.config(['$stateProvider', function($stateProvider) {
-    $stateProvider.state('topology', {
-        url: '/topology',
-        templateUrl: 'partials/topology.html',
-        controller: 'TopologyCtrl'
-    });
+  $stateProvider.state('topology', {
+    url: '/topology',
+    templateUrl: 'partials/topology.html',
+    controller: 'TopologyCtrl'
+  });
 
 }])
