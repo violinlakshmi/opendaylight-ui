@@ -9,11 +9,15 @@ angular.module('opendaylight')
         },
         template: '<span class="glyphicon glyphicon-{{stateIcon}}-sign"></span>',
         controller: function ($scope) {
-            var icons = {
-                1: 'ok',
-                0: 'exclamation'
+            var stateValue = $scope.stateValue;
+
+            var icons = {1: 'ok', 0: 'exclamation'};
+            var textStates = {'true': 1, 'false': 0}
+            if (!stateValue.match('^[0-9]$')) {
+                stateValue = textStates[stateValue];
             }
-            $scope.stateIcon = icons[$scope.stateValue]
+            console.log(stateValue)
+            $scope.stateIcon = icons[stateValue]
         }
 
     }
