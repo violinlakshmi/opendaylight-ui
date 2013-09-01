@@ -13,8 +13,8 @@ opendaylight.factory('FlowSvc', ['NBApiSvc', function (NBApiSvc) {
     return svc.base(container).one('node', nodeType).one(nodeId)
   }
 
-  svc.nodeStaticFlowsUrl = function(container, nodeType, nodeId, name) {
-    return svc.base(container).one('node', nodeType).one(nodeId).one(name)
+  svc.nodeFlowUrl = function(container, nodeType, nodeId, name) {
+    return svc.base(container).one('node', nodeType).one(nodeId).one('static-flow', name)
   }
 
   return svc
@@ -26,30 +26,54 @@ opendaylight.controller('FlowsCtrl', ['$scope', 'FlowSvc', function ($scope, Flo
 opendaylight.config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('flows', {
     url: '/flows',
-    templateUrl: 'partials/flows.html',
+    template: '<ui-view></ui-view>',
     abstract: true
   })
 
-  $stateProvider.state('flows.details', {
-    url: '/{nodeType}/{nodeId}',
+  $stateProvider.state('flows.list', {
+    url: '/list',
     views: {
       '': {
-        templateUrl: 'partials/flows.details.html',
-        controller: ['$scope', 'FlowSvc', 'Restangular', function ($scope, FlowSvc, Restangular) {
-          var req = FlowSvc.nodeFlowsUrl('default', $scope.$stateParams.nodeType, $scope.$stateParams.nodeId);
-          $scope.flows = req.getList()
+        templateUrl: 'partials/flows.list.html',
+        controller: ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
+          FlowSvc.flowsUrl().getList().then(function (data) {
+            $scope.flows = data.flowConfig;
+          })
         }]
       }
     }
   });
 
-  $stateProvider.state('flows.details.edit', {
-    url: '/edit',
+  // List the flows on a node
+  $stateProvider.state('flows.node', {
+    url: '/{nodeType}/{nodeId}',
     views: {
       '': {
-        templateUrl: 'partials/flows.edit.html',
+        templateUrl: 'partials/flows.node.html',
         controller: ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
-          //console.log($scope.flows)
+          FlowSvc.nodeFlowsUrl('default', $scope.$stateParams.nodeType, $scope.$stateParams.nodeId).getList().then(
+            function (data) {
+              $scope.flows = data.flowConfig;
+            }
+          )
+        }]
+      }
+    }
+  });
+
+  // List flow details
+  $stateProvider.state('flows.details', {
+    url: '/{nodeType}/{nodeId}/{flowName}',
+    views: {
+      '': {
+        templateUrl: 'partials/flows.details.html',
+        controller: ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
+          $scope.installed = 1;
+          FlowSvc.nodeFlowUrl(null, $scope.$stateParams.nodeType, $scope.$stateParams.nodeId, $scope.$stateParams.flowName).get().then(
+            function (data) {
+              $scope.flow = data;
+            }
+          )
         }]
       }
     }
