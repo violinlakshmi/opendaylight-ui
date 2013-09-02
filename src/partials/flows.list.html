@@ -18,10 +18,10 @@
         <tbody>
           <tr ng-repeat="flow in flows">
             <td>
-              <a ui-sref="flows.details({nodeType: flow.node['@type'], nodeId: flow.node['@id'], flowName: flow.name})">{{flow.name}}</a>
+              <a ui-sref="flows.details({nodeType: flow.node.type, nodeId: flow.node.id, flowName: flow.name})">{{flow.name}}</a>
             </td>
             <td>
-              <a ui-sref="flows.node({nodeType: flow.node['@type'], nodeId: flow.node['@id']})">{{flow.node['@type']}} / {{flow.node['@id']}}</a>
+              <a ui-sref="flows.node({nodeType: flow.node.type, nodeId: flow.node.id})">{{flow.node.type}} / {{flow.node.id}}</a>
             </td>
           </tr>
         </tbody>

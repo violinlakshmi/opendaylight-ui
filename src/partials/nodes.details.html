@@ -13,7 +13,7 @@
     <tbody>
       <tr class="table table-condensed" ng-repeat="ncp in ncpData[$stateParams['nodeId']]">
         <td>{{ncp.properties.name.value}}</td>
-        <td>{{ncp.nodeconnector['@type']}}</td>
+        <td>{{ncp.nodeconnector.type}}</td>
         <td>
           <state-icon value="{{ncp.properties.state.value}}"></state-icon>
           <port-state value="{{ncp.properties.state.value}}"></port-state>

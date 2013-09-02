@@ -10,8 +10,8 @@
 
       <div ng-repeat="np in npData" class="node">
 
-        <a ui-sref="nodes.details({nodeId: np.node['@id'], nodeType: np.node['@type']})">{{np.node['@type']}}/{{np.node['@id']}}</a>
-        <span class="glyphicon glyphicon-chevron-left" ng-show="$stateParams.nodeId == np.node['@id']"></span>
+        <a ui-sref="nodes.details({nodeId: np.node.id, nodeType: np.node.type})">{{np.node.type}}/{{np.node.id}}</a>
+        <span class="glyphicon glyphicon-chevron-left" ng-show="$stateParams.nodeId == np.node.id"></span>
         <br/>
         Description: {{np.properties.description.value}} <br/>
         Mac: {{np.properties.macAddress.value}}<br/>

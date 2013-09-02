@@ -27,9 +27,9 @@ opendaylight.controller('NodesCtrl', ['$scope', 'SwitchSvc', function($scope, Sw
     $scope.npData = npData.nodeProperties;
 
     angular.forEach(npData.nodeProperties, function (np) {
-      SwitchSvc.nodeUrl(null, np.node['@type'], np.node['@id']).get().then(
+      SwitchSvc.nodeUrl(null, np.node.type, np.node.id).get().then(
         function(ncp, test) {
-          $scope.ncpData[np.node['@id']] = ncp.nodeConnectorProperties
+          $scope.ncpData[np.node.id] = ncp.nodeConnectorProperties
         }
       )
     })
