@@ -11,9 +11,9 @@ angular.module('opendaylight').config(
         templateUrl: 'partials/index.html'
     });
 
-    $stateProvider.state('help', {
-        url: '/help',
-        templateUrl: 'partials/help.html'
+    $stateProvider.state('about', {
+        url: '/about',
+        templateUrl: 'partials/about.html'
     });
 
     $stateProvider.state('login', {
