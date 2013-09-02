@@ -26,10 +26,14 @@ opendaylight.controller('FlowsCtrl', ['$scope', 'FlowSvc', function ($scope, Flo
 opendaylight.config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('flows', {
     url: '/flows',
-    template: '<ui-view></ui-view>',
+    templateUrl: 'partials/flows.html',
+    //template: '<ui-view></ui-view>',
     abstract: true
   })
 
+
+
+  // List all flows - independant of node.
   $stateProvider.state('flows.list', {
     url: '/list',
     views: {
@@ -43,6 +47,24 @@ opendaylight.config(['$stateProvider', function ($stateProvider) {
       }
     }
   });
+
+  $stateProvider.state('flows.create', {
+    url: '/create',
+    views: {
+      '': {
+        templateUrl: 'partials/flows.create.html',
+        controller: ['$scope', 'FlowSvc', 'SwitchSvc', function ($scope, FlowSvc, SwitchSvc) {
+          $scope.nodes = SwitchSvc.nodesUrl().getList();
+
+          // The current select nodes properties
+          $scope.selectNode = function() {
+            var node = $scope.nodeString.split('/');
+            $scope.ncpData = SwitchSvc.nodeUrl(null, node[0], node[1]).get();
+          }
+        }]
+      }
+    }
+  })
 
   // List the flows on a node
   $stateProvider.state('flows.node', {
@@ -61,19 +83,30 @@ opendaylight.config(['$stateProvider', function ($stateProvider) {
     }
   });
 
-  // List flow details
+  // Show details
   $stateProvider.state('flows.details', {
     url: '/{nodeType}/{nodeId}/{flowName}',
     views: {
       '': {
         templateUrl: 'partials/flows.details.html',
         controller: ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
-          $scope.installed = 1;
           FlowSvc.nodeFlowUrl(null, $scope.$stateParams.nodeType, $scope.$stateParams.nodeId, $scope.$stateParams.flowName).get().then(
             function (data) {
               $scope.flow = data;
             }
           )
+        }]
+      }
+    }
+  });
+
+  // Edit state which uses the '' view in flows.details
+  $stateProvider.state('flows.details.edit', {
+    url: '/edit',
+    views: {
+      '@flows.details': {
+        templateUrl: 'partials/flows.edit.html',
+        controller: ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
         }]
       }
     }
