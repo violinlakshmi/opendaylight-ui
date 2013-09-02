@@ -1,5 +1,8 @@
 /*
     Keep API service here
+
+    For information about the NB API please go to:
+    https://wiki.opendaylight.org/view/OpenDaylight_Controller:REST_Reference_and_Authentication
 */
 
 opendaylight.factory('FlowSvc', ['NBApiSvc', function (NBApiSvc) {
@@ -46,10 +49,35 @@ opendaylight.factory('SwitchSvc', ['NBApiSvc', function (NBApiSvc) {
 }]);
 
 
-opendaylight.factory('TopologySvc', ['Restangular', function (Restangular) {
+opendaylight.factory('TopologySvc', ['NBApiSvc', 'SwitchSvc', function (NBApiSvc) {
   var svc = {
-    'rest': Restangular
+    base: function (container) {
+      return NBApiSvc.base('topology', container)
+    }
   };
 
-  return svc
+  svc.topologyUrl = function (container) {
+    return svc.base(container)
+  }
+
+  svc.userLinksUrl = function (container) {
+    return svc.base(container).all('user-link');
+  }
+
+  svc.userLinkUrl = function (container, linkName) {
+    return svc.base(container).one('user-link', linkName);
+  }
+
+  svc.getTopologyData = function (container, cb, eb) {
+    TopologySvc.topologyUrl().getList().then(
+      function(topologyData) {
+        SwitchSvc.nodesUrl().getList().then(
+          function(nodesProperties) {
+          }
+        )
+      }
+    )
+  }
+
+  return svc;
 }]);
