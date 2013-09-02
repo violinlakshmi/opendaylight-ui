@@ -8,14 +8,17 @@
     "components"
   ],
   "dependencies": {
-    "jquery": "~2.0.2",
     "bootstrap": "https://github.com/twbs/bootstrap/archive/v3.0.0.zip",
+    "jquery": "~2.0.3",
+    "select2": "master",
+    "select2-bootstrap-css": "https://github.com/fk/select2-bootstrap-css/archive/master.zip",
+    "underscore": "latest",
+    "underscore.string": "latest",
     "angular": "http://code.angularjs.org/snapshot/angular.js",
     "angular-cookies": "http://code.angularjs.org/snapshot/angular-cookies.js",
     "angular-route": "http://code.angularjs.org/snapshot/angular-route.js",
-    "angular-ui-router": "http://cloudistic.me/angular-ui-router.min.js",
     "restangular": "latest",
-    "underscore": "latest",
-    "underscore.string": "latest"
+    "angular-ui-select2": "https://raw.github.com/angular-ui/ui-select2/master/src/select2.js",
+    "angular-ui-router": "http://cloudistic.me/angular-ui-router.min.js"
   }
 }

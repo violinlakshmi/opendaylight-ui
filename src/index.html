@@ -3,12 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title ng-bind="'ODL UI - ' + $state.current.name"></title>
+
   <link href="components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="components/select2/select2.css" rel="stylesheet" media="screen">
+  <link href="components/select2-bootstrap-css/select2-bootstrap.css" rel="stylesheet" media="screen">
+
   <link rel="stylesheet" href="opendaylight-ui.css">
 </head>
 
 <body>
-
   <!-- #menu -->
   <div id="menu" class="navbar navbar-default navbar-static-top" ng-show="authed">
     <div class="container">
@@ -61,17 +64,19 @@
     <!-- END #footer -->
   </div>
 
-
   <!-- For now use trunk / snapshot of angular-->
   <script src="components/jquery/jquery.min.js"></script>
+  <script src="components/underscore/underscore-min.js"></script>
+  <script src="components/underscore.string/lib/underscore.string.js"></script>
+  <script src="components/select2/select2.js"></script>
+
   <script src="components/angular/index.js"></script>
   <script src="components/angular-route/index.js"></script>
   <script src="components/angular-cookies/index.js"></script>
   <script src="components/angular-ui-router/index.js"></script>
+  <script src="components/angular-ui-select2/index.js"></script>
   <script src="components/restangular/src/restangular.js"></script>
   <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="components/underscore/underscore-min.js"></script>
-  <script src="components/underscore.string/lib/underscore.string.js"></script>
   <script src="http://localhost:9001/livereload.js"></script>
 
   <!-- Scripts here please -->

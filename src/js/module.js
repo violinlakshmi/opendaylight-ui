@@ -3,7 +3,7 @@
 var noAuthRoutes = ['/login'];
 
 // Make sure to include the `ui.router` module as a dependency
-var opendaylight = angular.module('opendaylight', ['ui.router', 'ngCookies', 'restangular']).run(
+var opendaylight = angular.module('opendaylight', ['ngCookies', 'restangular', 'ui.router', 'ui.select2']).run(
   ['$rootScope', '$state', '$stateParams', '$location', 'config', 'AuthService',
   function ($rootScope, $state, $stateParams, $location, config, AuthService) {
 
