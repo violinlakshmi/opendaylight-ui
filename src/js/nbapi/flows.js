@@ -1,28 +1,3 @@
-opendaylight.factory('FlowSvc', ['NBApiSvc', function (NBApiSvc) {
-  var svc = {
-    base: function(container) {
-      return NBApiSvc.base('flow', container)
-    }
-  }
-
-  svc.flowsUrl = function (container) {
-    return svc.base(container)
-  }
-
-  svc.nodeFlowsUrl = function(container, nodeType, nodeId) {
-    return svc.base(container).one('node', nodeType).one(nodeId)
-  }
-
-  svc.nodeFlowUrl = function(container, nodeType, nodeId, name) {
-    return svc.base(container).one('node', nodeType).one(nodeId).one('static-flow', name)
-  }
-
-  return svc
-}]);
-
-opendaylight.controller('FlowsCtrl', ['$scope', 'FlowSvc', function ($scope, FlowSvc) {
-}])
-
 opendaylight.config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('flows', {
     url: '/flows',
@@ -30,8 +5,6 @@ opendaylight.config(['$stateProvider', function ($stateProvider) {
     //template: '<ui-view></ui-view>',
     abstract: true
   })
-
-
 
   // List all flows - independant of node.
   $stateProvider.state('flows.list', {
