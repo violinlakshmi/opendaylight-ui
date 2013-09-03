@@ -21,6 +21,7 @@ angular.module('opendaylight')
 
     }
 })
+
 .directive('portState', function() {
     return {
         restrict: 'E',

@@ -49,7 +49,7 @@ opendaylight.factory('SwitchSvc', ['NBApiSvc', function (NBApiSvc) {
 }]);
 
 
-opendaylight.factory('TopologySvc', ['NBApiSvc', 'SwitchSvc', function (NBApiSvc) {
+opendaylight.factory('TopologySvc', ['NBApiSvc', 'SwitchSvc', function (NBApiSvc, SwitchSvc) {
   var svc = {
     base: function (container) {
       return NBApiSvc.base('topology', container)
@@ -68,15 +68,38 @@ opendaylight.factory('TopologySvc', ['NBApiSvc', 'SwitchSvc', function (NBApiSvc
     return svc.base(container).one('user-link', linkName);
   }
 
+  // Fetch the data needed
   svc.getTopologyData = function (container, cb, eb) {
-    TopologySvc.topologyUrl().getList().then(
-      function(topologyData) {
-        SwitchSvc.nodesUrl().getList().then(
-          function(nodesProperties) {
+    var nodes = []
+
+    var data = {
+      directed: false, multigraph: false, graph: [], nodes: [], links: []
+    }
+
+    SwitchSvc.nodesUrl().getList().then(function(npData) {
+      angular.forEach(npData.nodeProperties, function(value, key){
+        nodes[key] = value.node.id;
+        data.nodes[key] = {id: value.node.id};
+      });
+
+      // TODO: Howto handle if a indexOf becomes -1? That would mean there's a diff between the nodes data and the topology data!?
+      svc.topologyUrl().getList().then(function(tData) {
+        angular.forEach(tData.edgeProperties, function(ep) {
+          var edgeId = nodes.indexOf(ep.edge.headNodeConnector.node.id);
+          var tailId = nodes.indexOf(ep.edge.tailNodeConnector.node.id);
+
+          // TODO: Possible place to call errback?
+          if (edgeId == -1 || tailId == -1) {
+            console.log("WARNING - couldn't the id with -1: " + edgeId + ' ' + tailId)
           }
-        )
-      }
-    )
+
+          data.links.push({"source": edgeId, "target": tailId});
+        });
+
+        // All done, let's feed the data to the upper function
+        cb(data)
+      })
+    })
   }
 
   return svc;

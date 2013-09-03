@@ -54,7 +54,6 @@ module.exports = function (grunt) {
                 src: [
                     'src/js/module.js',
                     'src/js/auth.js',
-                    'src/js/directives.js',
                     'src/js/states.js',
                     'src/js/factory.js',
                     'src/js/controllers.js',
